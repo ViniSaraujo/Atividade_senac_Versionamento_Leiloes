@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -136,12 +137,23 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        String id = id_produto_venda.getText();
+        String idStr = id_produto_venda.getText();
         
-        ProdutosDAO produtosdao = new ProdutosDAO();
-        
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+        if(!idStr.isEmpty()){
+            try {
+                int id = Integer.parseInt(idStr);
+                
+                ProdutosDAO produtosdao = new ProdutosDAO();
+                produtosdao.venderProduto(id); 
+                
+                listarProdutos(); // Atualiza a tabela
+                
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Digite apenas números no ID.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha o campo ID para vender.");
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
